@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+<context:component-scan base-package="cn.aura.ssm.service"></context:component-scan>
+<context:property-placeholder location="classpath:jdbc.properties" />
+
+<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${drive}"></property>
+	<property name="url" value="${url}"></property>
+	<property name="username" value="${user}"></property>
+	<property name="password" value="${password}"></property>
+</bean>
+
+<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="ds"></property>
+	<property name="typeAliasesPackage" value="cn.aura.ssm.entity"></property>
+	<property name="mapperLocations" value="classpath:cn/aura/ssm/dao/*.xml"></property>
+	
+</bean>
+
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="sqlSessionFactoryBeanName" value="ssf"></property>
+	<property name="basePackage" value="cn.aura.ssm.dao"></property>
+</bean>
+
+<bean id="txManager" class="">
+	
+</bean>
+
+</beans>
